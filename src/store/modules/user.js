@@ -1,15 +1,57 @@
 import axios from "axios";
-import authHeader from "../auth/auth-header";
 
-// const API_URL = process.env.VUE_APP_API_BASE_URL + "user/";
+const API_URL = process.env.VUE_APP_API_BASE_URL;
 
-const state = {};
+const state = {
+  token: localStorage.getItem("smd-user") || "",
+  loginError: false,
+  registerSuccess: false,
+};
 
-const mutations = {};
+const mutations = {
+  setToken(state, token) {
+    localStorage.setItem("smd-user", JSON.stringify(token));
+    state.token = token;
+  },
 
-const actions = {};
+  setLoginError(state, value) {
+    state.loginError = value;
+  },
 
-const getters = {};
+  setRegisterSuccess(state, value) {
+    state.registerSuccess = value;
+  },
+};
+
+const actions = {
+  async register({ commit }, req) {
+    try {
+      await axios.post(API_URL + "register/", req);
+      return commit("setRegisterSuccess", true);
+    } catch (error) {
+      alert(error);
+    }
+  },
+
+  /*eslint-disable no-console*/
+
+  async login({ commit }, req) {
+    try {
+      const response = await axios.post(API_URL + "login/", req);
+      console.log(response.data);
+      commit("setToken", response.data.token);
+    } catch (error) {
+      console.log(error);
+      commit("setLoginError", true);
+      throw error;
+    }
+  },
+  /*eslint-enable no-console*/
+};
+
+const getters = {
+  token: (state) => state.token,
+};
 
 export default {
   state,

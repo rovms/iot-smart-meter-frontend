@@ -7,11 +7,11 @@ export default function authHeader() {
   }
 }
 
-export default function adminAuthHeader() {
-  let admin = JSON.parse(localStorage.getItem("smd-admin"));
-  if (admin && admin.token) {
-    return { Authorization: "Bearer " + admin.token };
-  } else {
-    return {};
-  }
-}
+// export default function adminAuthHeader() {
+//   let admin = JSON.parse(localStorage.getItem("smd-admin"));
+//   if (admin && admin.token) {
+//     return { Authorization: "Bearer " + admin.token };
+//   } else {
+//     return {};
+//   }
+// }
