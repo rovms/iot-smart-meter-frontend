@@ -51,6 +51,7 @@ const actions = {
 
 const getters = {
   token: (state) => state.token,
+  registerSuccess: (state) => state.registerSuccess,
 };
 
 export default {
