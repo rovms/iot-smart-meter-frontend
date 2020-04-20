@@ -9,12 +9,11 @@
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <v-text-field label="Login" name="login" prepend-icon="person" type="text" />
+              <v-text-field label="Login" name="login" type="text" />
               <v-text-field
                 id="password"
                 label="Password"
                 name="password"
-                prepend-icon="lock"
                 type="password"
               />
             </v-form>
@@ -34,6 +33,6 @@ export default {
   name: "Login",
   data() {
     return {};
-  }
+  },
 };
 </script>
