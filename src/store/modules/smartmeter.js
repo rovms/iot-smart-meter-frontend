@@ -32,30 +32,51 @@ const actions = {
 const getters = {
   allData: (state) => state.data,
   loading: (state) => state.loading,
-  datas: (state) => {
+  lineLabels: (state) => {
     var labels = [];
-    var data = [];
     if (state.data && state.data.data && state.data.data.length > 0) {
       state.data.data.forEach((element) => {
         if (element.meter_id === 1) {
           labels.push(element.timestamp);
-          data.push(element.reading);
         }
       });
-      // var datasets = [
-      //   {
-      //     label: "Meter 1",
-      //     data: data,
-      //     fill: false,
-      //     borderColor: "rgb(84, 153, 199)",
-      //   },
-      // ];
-
-      // return { labels: labels, datasets: datasets };
-      return [1, 2, 3];
     }
-    return null;
+    return labels;
   },
+  lineDatas: (state) => {
+    var datas = [];
+    if (state.data && state.data.data && state.data.data.length > 0) {
+      state.data.data.forEach((element) => {
+        if (element.meter_id === 1) {
+          datas.push(element.reading);
+        }
+      });
+    }
+    return datas;
+  },
+  // datas: (state) => {
+  //   var data = [];
+  //   if (state.data && state.data.data && state.data.data.length > 0) {
+  //     state.data.data.forEach((element) => {
+  //       if (element.meter_id === 1) {
+  //         labels.push(element.timestamp);
+  //         data.push(element.reading);
+  //       }
+  //     });
+  //     // var datasets = [
+  //     //   {
+  //     //     label: "Meter 1",
+  //     //     data: data,
+  //     //     fill: false,
+  //     //     borderColor: "rgb(84, 153, 199)",
+  //     //   },
+  //     // ];
+
+  //     // return { labels: labels, datasets: datasets };
+  //     return [1, 2, 3];
+  //   }
+  //   return null;
+  // },
 };
 
 export default {

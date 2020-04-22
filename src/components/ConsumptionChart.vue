@@ -17,18 +17,18 @@ export default {
   computed: {
     datasetsfull() {
       return {
-        labels: ["1", "2", "3"],
+        labels: this.lineLabels,
         datasets: [
           {
             label: "Meter 1",
             borderColor: "rgb(255, 0, 0)",
             fill: false,
-            data: this.datas
+            data: this.lineDatas
           }
         ]
       };
     },
-    ...mapGetters(["datas"])
+    ...mapGetters(["lineLabels", "lineDatas"])
   },
   methods: {
     ...mapActions(["fetchData"])
