@@ -5,6 +5,7 @@ import Home from "../components/Home.vue";
 import Dashboard from "../components/Dashboard.vue";
 import NotExists from "../components/NotExists.vue";
 import ConsumptionTable from "../components/ConsumptionTable.vue";
+import ConsumptionChart from "../components/ConsumptionChart.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,14 @@ const router = new VueRouter({
       path: "/consumption",
       name: "consumption",
       component: ConsumptionTable,
+      meta: {
+        authRequired: true,
+      },
+    },
+    {
+      path: "/consumption/chart",
+      name: "consumption_chart",
+      component: ConsumptionChart,
       meta: {
         authRequired: true,
       },
