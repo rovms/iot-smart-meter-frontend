@@ -1,15 +1,36 @@
 import axios from "axios";
-import authHeader from "../auth/auth-header";
 
-// const API_URL = process.env.VUE_APP_API_BASE_URL + "user/";
+const API_URL = process.env.VUE_APP_API_BASE_URL + "real_data/";
+const state = {
+  data: [],
+  loading: false,
+};
 
-const state = {};
+const mutations = {
+  setData(state, payload) {
+    state.data = payload;
+  },
+  setLoading(state, value) {
+    state.loading = value;
+  },
+};
 
-const mutations = {};
+const actions = {
+  async fetchData({ commit }) {
+    commit("setLoading", true);
+    try {
+      const response = await axios.get(API_URL, { params: { size: 100 } });
+      commit("setLoading", false);
+      return commit("setData", response.data);
+    } catch (error) {
+      alert(error);
+    }
+  },
+};
 
-const actions = {};
-
-const getters = {};
+const getters = {
+  allData: (state) => state.data,
+};
 
 export default {
   state,

@@ -4,6 +4,7 @@ import Login from "../components/Login.vue";
 import Home from "../components/Home.vue";
 import Dashboard from "../components/Dashboard.vue";
 import NotExists from "../components/NotExists.vue";
+import ConsumptionTable from "../components/ConsumptionTable.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,14 @@ const router = new VueRouter({
       path: "/dashboard",
       name: "dashboard",
       component: Dashboard,
+      meta: {
+        authRequired: true,
+      },
+    },
+    {
+      path: "/consumption",
+      name: "consumption",
+      component: ConsumptionTable,
       meta: {
         authRequired: true,
       },
