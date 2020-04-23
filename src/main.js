@@ -6,6 +6,8 @@ import store from "./store";
 
 Vue.config.productionTip = false;
 
+Vue.prototype.$http = require("axios");
+
 new Vue({
   vuetify,
   router: router,

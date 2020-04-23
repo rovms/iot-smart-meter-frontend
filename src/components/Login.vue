@@ -73,6 +73,9 @@ export default {
     submitLogin() {
       const req = { username: this.username, password: this.password };
       this.login(req).then(() => {
+        /*eslint-disable no-console*/
+        console.log("hello");
+        /*eslint-enable no-console*/
         this.$router.push({ name: "dashboard" });
       });
     },

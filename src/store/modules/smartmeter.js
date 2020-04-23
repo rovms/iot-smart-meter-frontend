@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "../auth/auth-header";
 
 const API_URL = process.env.VUE_APP_API_BASE_URL + "real_data/";
 
@@ -18,12 +19,22 @@ const mutations = {
 
 const actions = {
   async fetchData({ commit }) {
+    /*eslint-disable no-console*/
+    console.log("header: " + authHeader());
+    /*eslint-enable no-console*/
     commit("setLoading", true);
     try {
-      const response = await axios.get(API_URL, { params: { size: 20 } });
+      const response = await axios.get(API_URL, {
+        headers: authHeader(),
+        params: { size: 500 },
+      });
       commit("setLoading", false);
-      return commit("setData", response.data);
+      commit("setData", response.data);
+      return;
     } catch (error) {
+      /*eslint-disable no-console*/
+      console.log("error: " + error.data);
+      /*eslint-enable no-console*/
       alert(error);
     }
   },
@@ -35,14 +46,10 @@ const getters = {
   lineLabels: (state) => {
     var labels = [];
     if (state.data && state.data.data && state.data.data.length > 0) {
+      const id = state.data.data[0].meter_id;
       state.data.data.forEach((element) => {
-        if (element.meter_id === 1) {
+        if (element.meter_id === id) {
           var date = new Date(element.timestamp);
-          /*eslint-disable no-console*/
-          console.log("date: " + date.getDate());
-          console.log("month: " + date.getMonth());
-          console.log("hour: " + date.getHours());
-          /*eslint-enable no-console*/
           var datestr =
             date.getDate() +
             "." +
@@ -58,39 +65,14 @@ const getters = {
     return labels;
   },
   lineDatas: (state) => {
-    var datas = [];
-    if (state.data && state.data.data && state.data.data.length > 0) {
+    var datas = [[], [], [], []];
+    if (state.data && state.data.data) {
       state.data.data.forEach((element) => {
-        if (element.meter_id === 1) {
-          datas.push(element.reading);
-        }
+        datas[element.meter_id].push(element.reading);
       });
     }
     return datas;
   },
-  // datas: (state) => {
-  //   var data = [];
-  //   if (state.data && state.data.data && state.data.data.length > 0) {
-  //     state.data.data.forEach((element) => {
-  //       if (element.meter_id === 1) {
-  //         labels.push(element.timestamp);
-  //         data.push(element.reading);
-  //       }
-  //     });
-  //     // var datasets = [
-  //     //   {
-  //     //     label: "Meter 1",
-  //     //     data: data,
-  //     //     fill: false,
-  //     //     borderColor: "rgb(84, 153, 199)",
-  //     //   },
-  //     // ];
-
-  //     // return { labels: labels, datasets: datasets };
-  //     return [1, 2, 3];
-  //   }
-  //   return null;
-  // },
 };
 
 export default {

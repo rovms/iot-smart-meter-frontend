@@ -15,7 +15,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-
+import store from "./store";
 export default {
   name: "App",
 
@@ -30,6 +30,18 @@ export default {
     logout() {
       this.logoutUser().then(() => this.$router.push({ name: "home" }));
     }
+  },
+  created() {
+    this.$http.interceptors.response.use(undefined, function(err) {
+      return new Promise(function() {
+        if (err.response.status === 401) {
+          store
+            .dispatch("logoutUser")
+            .then(() => this.$router.push({ name: "login" }));
+        }
+        throw err;
+      });
+    });
   }
 };
 </script>
