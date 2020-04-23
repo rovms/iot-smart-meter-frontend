@@ -4,7 +4,8 @@
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <v-toolbar-title>IoT 2020 - Smart Meter Data Platform</v-toolbar-title>
       <v-spacer></v-spacer>
-      <router-link to="login" tag="button">Login</router-link>
+      <router-link v-if="!isLoggedIn" :to="{ name:  'login' }" tag="button">Login</router-link>
+      <v-btn color="primary" small v-if="isLoggedIn" v-on:click="logout">Logout</v-btn>
     </v-app-bar>
     <v-content>
       <router-view />
@@ -13,19 +14,22 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "App",
 
   data: () => ({
     //
   }),
-  methods: {
-    toLogin() {
-      /*eslint-disable no-console*/
-      console.log("hello");
-      /*eslint-enable no-console*/
-      this.$router.push({ name: "login" });
-    },
+  computed: {
+    ...mapGetters(["isLoggedIn"])
   },
+  methods: {
+    ...mapActions(["logoutUser"]),
+    logout() {
+      this.logoutUser().then(() => this.$router.push({ name: "home" }));
+    }
+  }
 };
 </script>

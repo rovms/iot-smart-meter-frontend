@@ -19,7 +19,7 @@
                 label="Password"
                 name="password"
                 type="password"
-              />,
+              />
             </v-form>
           </v-card-text>
           <v-card-actions>

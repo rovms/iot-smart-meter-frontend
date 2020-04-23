@@ -37,7 +37,21 @@ const getters = {
     if (state.data && state.data.data && state.data.data.length > 0) {
       state.data.data.forEach((element) => {
         if (element.meter_id === 1) {
-          labels.push(element.timestamp);
+          var date = new Date(element.timestamp);
+          /*eslint-disable no-console*/
+          console.log("date: " + date.getDate());
+          console.log("month: " + date.getMonth());
+          console.log("hour: " + date.getHours());
+          /*eslint-enable no-console*/
+          var datestr =
+            date.getDate() +
+            "." +
+            date.getMonth() +
+            " " +
+            date.getHours() +
+            ":" +
+            date.getMinutes();
+          labels.push(datestr);
         }
       });
     }

@@ -21,6 +21,11 @@ const mutations = {
   setRegisterSuccess(state, value) {
     state.registerSuccess = value;
   },
+
+  logoutUser() {
+    localStorage.removeItem("smd-user");
+    state.token = "";
+  },
 };
 
 const actions = {
@@ -46,12 +51,21 @@ const actions = {
       throw error;
     }
   },
+
+  logoutUser({ commit }) {
+    return new Promise((resolve) => {
+      commit("logoutUser");
+      localStorage.removeItem("smd-user");
+      resolve();
+    });
+  },
   /*eslint-enable no-console*/
 };
 
 const getters = {
   token: (state) => state.token,
   registerSuccess: (state) => state.registerSuccess,
+  isLoggedIn: (state) => !!state.token,
 };
 
 export default {

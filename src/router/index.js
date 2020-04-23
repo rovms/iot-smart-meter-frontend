@@ -6,6 +6,7 @@ import Dashboard from "../components/Dashboard.vue";
 import NotExists from "../components/NotExists.vue";
 import ConsumptionTable from "../components/ConsumptionTable.vue";
 import ConsumptionChart from "../components/ConsumptionChart.vue";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -55,3 +56,12 @@ const router = new VueRouter({
 });
 
 export default router;
+
+router.beforeEach((to, from, next) => {
+  if (store.getters.isLoggedIn) {
+    return next();
+  }
+  const authRequired = to.matched.some((record) => record.meta.authRequired);
+  if (authRequired) return next("/login");
+  return next();
+});
