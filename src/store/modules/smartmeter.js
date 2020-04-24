@@ -26,7 +26,7 @@ const actions = {
     try {
       const response = await axios.get(API_URL, {
         headers: authHeader(),
-        params: { size: 500 },
+        params: { size: 1000 },
       });
       commit("setLoading", false);
       commit("setData", response.data);
@@ -57,7 +57,7 @@ const getters = {
             " " +
             date.getHours() +
             ":" +
-            date.getMinutes();
+            "00";
           labels.push(datestr);
         }
       });
@@ -72,6 +72,29 @@ const getters = {
       });
     }
     return datas;
+  },
+  timeAverages: (state) => {
+    var elmts = Array(24);
+    for (var i = 0; i < elmts.length; i++) {
+      elmts[i] = [];
+    }
+    if (state.data && state.data.data) {
+      state.data.data.forEach((element) => {
+        var date = new Date(element.timestamp);
+        elmts[date.getHours()].push(element.reading);
+      });
+    }
+
+    var averages = [];
+    for (var k = 0; k < elmts.length; k++) {
+      var sum = 0;
+      for (var j = 0; j < elmts[k].length; j++) {
+        sum += elmts[k][j];
+      }
+      averages.push(sum / elmts[k].length);
+    }
+
+    return averages;
   },
 };
 
