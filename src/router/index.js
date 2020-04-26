@@ -67,10 +67,14 @@ const router = new VueRouter({
 export default router;
 
 router.beforeEach((to, from, next) => {
+  /*eslint-disable no-console*/
+  console.log("loggedin: " + store.getters.isLoggedIn);
   if (store.getters.isLoggedIn) {
     return next();
   }
   const authRequired = to.matched.some((record) => record.meta.authRequired);
+  console.log("authRequired: " + authRequired);
   if (authRequired) return next("/login");
   return next();
+  /*eslint-enable no-console*/
 });

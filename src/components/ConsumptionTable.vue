@@ -8,7 +8,11 @@
       class="elevation-1"
       :loading="loading"
       loading-text="Loading... Please wait"
-    ></v-data-table>
+    >
+      <template v-slot:item.timestamp="{ item }">
+        <span>{{ item.timestamp | moment("DD.MM.YYYY hh:mm") }}</span>
+      </template>
+    </v-data-table>
   </v-container>
 </template>
 
@@ -23,19 +27,19 @@ export default {
         {
           text: "Time",
           align: "start",
-          value: "timestamp"
+          value: "timestamp",
         },
         { text: "Reading (Wh)", value: "reading" },
-        { text: "Meter id", value: "meter_id" }
-      ]
+        { text: "Meter id", value: "meter_id" },
+      ],
     };
   },
   methods: {
-    ...mapActions(["fetchData"])
+    ...mapActions(["fetchData"]),
   },
   computed: mapGetters(["allData", "loading"]),
   created() {
     this.fetchData();
-  }
+  },
 };
 </script>

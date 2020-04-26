@@ -8,6 +8,8 @@ Vue.config.productionTip = false;
 
 Vue.prototype.$http = require("axios");
 
+Vue.use(require("vue-moment"));
+
 new Vue({
   vuetify,
   router: router,
