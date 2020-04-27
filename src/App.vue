@@ -15,6 +15,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import store from "./store";
+import axios from "axios";
 export default {
   name: "App",
 
@@ -35,7 +36,8 @@ export default {
     console.log("this: " + this);
     console.log("this.http: " + this.$http);
     /*eslint-enable no-console*/
-    this.$http.interceptors.response.use(undefined, function(err) {
+    axios.interceptors.response.use(undefined, function(err) {
+      // this.$http.interceptors.response.use(undefined, function(err) {
       return new Promise(function() {
         if (err.response.status === 401) {
           console.log("401");
