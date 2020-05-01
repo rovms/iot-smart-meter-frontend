@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Login from "../components/Login.vue";
 import Home from "../components/Home.vue";
 import Dashboard from "../components/Dashboard.vue";
+import AdminDashboard from "../components/AdminDashboard.vue";
 import NotExists from "../components/NotExists.vue";
 import ConsumptionTable from "../components/ConsumptionTable.vue";
 import ConsumptionChart from "../components/ConsumptionChart.vue";
@@ -33,7 +34,15 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/consumption",
+      path: "/admin/dashboard",
+      name: "admin_dashboard",
+      component: AdminDashboard,
+      meta: {
+        authRequired: true,
+      },
+    },
+    {
+      path: "/consumption/:houseId",
       name: "consumption",
       component: ConsumptionTable,
       meta: {
@@ -41,7 +50,7 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/consumption/time",
+      path: "/consumption/:houseId/time",
       name: "consumption_time",
       component: ConsumptionTimes,
       meta: {
@@ -49,7 +58,7 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/consumption/chart",
+      path: "/consumption/:houseId/chart",
       name: "consumption_chart",
       component: ConsumptionChart,
       meta: {

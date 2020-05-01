@@ -18,22 +18,25 @@ const mutations = {
 };
 
 const actions = {
-  async fetchData({ commit }) {
+  async fetchData({ commit }, houseId) {
     /*eslint-disable no-console*/
-    console.log("header: " + authHeader());
+    console.log(API_URL + (houseId != "all" ? houseId : ""));
     /*eslint-enable no-console*/
     commit("setLoading", true);
     try {
-      const response = await axios.get(API_URL, {
-        headers: authHeader(),
-        params: { size: 1000 },
-      });
+      const response = await axios.get(
+        API_URL + (houseId != "all" ? houseId : ""),
+        {
+          headers: authHeader(),
+          params: { size: 1000 },
+        }
+      );
       commit("setLoading", false);
       commit("setData", response.data);
       return;
     } catch (error) {
       /*eslint-disable no-console*/
-      console.log("error: " + error.data);
+      console.log("error: " + error);
       /*eslint-enable no-console*/
       alert(error);
     }

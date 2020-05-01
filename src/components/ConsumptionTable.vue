@@ -27,19 +27,19 @@ export default {
         {
           text: "Time",
           align: "start",
-          value: "timestamp",
+          value: "timestamp"
         },
         { text: "Reading (Wh)", value: "reading" },
-        { text: "Meter id", value: "meter_id" },
-      ],
+        { text: "Meter id", value: "meter_id" }
+      ]
     };
   },
   methods: {
-    ...mapActions(["fetchData"]),
+    ...mapActions(["fetchData"])
   },
   computed: mapGetters(["allData", "loading"]),
   created() {
-    this.fetchData();
-  },
+    this.fetchData(this.$route.params.houseId);
+  }
 };
 </script>

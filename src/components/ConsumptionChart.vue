@@ -49,7 +49,7 @@ export default {
   },
   created() {
     this.loaded = false;
-    this.fetchData().then(() => {
+    this.fetchData(this.$route.params.houseId).then(() => {
       this.loaded = true;
     });
   }
