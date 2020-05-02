@@ -11,7 +11,7 @@
       </v-card-actions>
     </v-card>
     <div v-for="houseId in cooperativeHouses" v-bind:key="houseId">
-      <v-card class="mx-auto mb-2" max-width="344" outlined>
+      <v-card class="mx-auto mb-2" max-width="344" outlined color="#1739211A">
         <v-card-title>House / Meter: {{houseId}}</v-card-title>
         <v-card-actions>
           <v-btn :to="{ name: 'consumption', params: { houseId: houseId } }">Table</v-btn>

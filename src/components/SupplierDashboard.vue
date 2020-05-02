@@ -14,8 +14,8 @@
       <v-card class="mx-auto mb-2" max-width="344" outlined>
         <v-card-title>Admin: {{admin.username}} {{admin.adminId}}</v-card-title>
         <div v-for="houseId in admin.houses_id" v-bind:key="houseId">
-          <v-card class="mx-auto mb-2" max-width="344" outlined>
-            <v-card-title>House / Meter: houseId</v-card-title>
+          <v-card class="mx-auto mb-2 mr-3 ml-3" max-width="344" outlined color="#1739211A">
+            <v-card-title>House / Meter: {{houseId}}</v-card-title>
             <v-card-actions>
               <v-btn :to="{ name: 'consumption', params: { houseId: houseId } }">Table</v-btn>
               <v-btn :to="{ name: 'consumption_chart', params: { houseId: houseId } }">Chart</v-btn>
@@ -25,7 +25,6 @@
         </div>
       </v-card>
     </div>
-    {{admins}}
   </v-container>
 </template>
 

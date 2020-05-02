@@ -4,6 +4,7 @@ import Login from "../components/Login.vue";
 import Home from "../components/Home.vue";
 import Dashboard from "../components/Dashboard.vue";
 import AdminDashboard from "../components/AdminDashboard.vue";
+import SupplierDashboard from "../components/SupplierDashboard.vue";
 import NotExists from "../components/NotExists.vue";
 import ConsumptionTable from "../components/ConsumptionTable.vue";
 import ConsumptionChart from "../components/ConsumptionChart.vue";
@@ -26,7 +27,7 @@ const router = new VueRouter({
       component: Login,
     },
     {
-      path: "/dashboard",
+      path: "/dashboard/:houseId",
       name: "dashboard",
       component: Dashboard,
       meta: {
@@ -37,6 +38,14 @@ const router = new VueRouter({
       path: "/admin/:adminId/dashboard",
       name: "admin_dashboard",
       component: AdminDashboard,
+      meta: {
+        authRequired: true,
+      },
+    },
+    {
+      path: "/supplier/dashboard",
+      name: "supplier_dashboard",
+      component: SupplierDashboard,
       meta: {
         authRequired: true,
       },
@@ -76,14 +85,10 @@ const router = new VueRouter({
 export default router;
 
 router.beforeEach((to, from, next) => {
-  /*eslint-disable no-console*/
-  console.log("loggedin: " + store.getters.isLoggedIn);
   if (store.getters.isLoggedIn) {
     return next();
   }
   const authRequired = to.matched.some((record) => record.meta.authRequired);
-  console.log("authRequired: " + authRequired);
   if (authRequired) return next("/login");
   return next();
-  /*eslint-enable no-console*/
 });

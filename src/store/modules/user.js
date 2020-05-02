@@ -10,6 +10,7 @@ const state = {
   registerSuccess: false,
   type: "",
   cooperativeHouses: [],
+  admins: [],
 };
 
 const mutations = {
@@ -34,6 +35,10 @@ const mutations = {
   setCooperativeHouses(state, payload) {
     state.cooperativeHouses = payload;
   },
+
+  setAdmins(state, payload) {
+    state.admins = payload;
+  },
 };
 
 const actions = {
@@ -54,11 +59,15 @@ const actions = {
       commit("setToken", response.data.token);
       var jwt = parseJwt(response.data.token);
       if (jwt.user_role == "admin") {
-        router.push({ name: "admin_dashboard", params: { adminId: jwt._id } });
+        // router.push({ name: "admin_dashboard", params: { adminId: jwt._id } });
+        router.push({ name: "admin_dashboard" });
       } else if (jwt.user_role == "supplier") {
         router.push({ name: "supplier_dashboard" });
       } else if (jwt.user_role == "customer") {
-        router.push({ name: "dashboard" });
+        router.push({
+          name: "dashboard",
+          params: { houseId: jwt.houses_id[0] },
+        });
       }
     } catch (error) {
       console.log(error);
@@ -92,6 +101,23 @@ const actions = {
         });
     });
   },
+
+  fetchAdministrators({ commit, state }) {
+    var jwt = parseJwt(state.token);
+    if (jwt.user_role != "supplier") {
+      alert("only admins!");
+    }
+    return new Promise((resolve) => {
+      axios
+        .get(API_URL + "admin/", {
+          headers: authHeader(),
+        })
+        .then((response) => {
+          commit("setAdmins", response.data.data);
+          resolve();
+        });
+    });
+  },
 };
 
 const getters = {
@@ -99,6 +125,7 @@ const getters = {
   registerSuccess: (state) => state.registerSuccess,
   isLoggedIn: (state) => !!state.token,
   cooperativeHouses: (state) => state.cooperativeHouses,
+  admins: (state) => state.admins,
 };
 
 // https://stackoverflow.com/questions/38552003/how-to-decode-jwt-token-in-javascript-without-using-a-library

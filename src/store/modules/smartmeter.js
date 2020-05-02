@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "../auth/auth-header";
 
-const API_URL = process.env.VUE_APP_API_BASE_URL + "real_data/";
+const API_URL = process.env.VUE_APP_API_BASE_URL + "real_data";
 
 const state = {
   data: [],
@@ -19,13 +19,10 @@ const mutations = {
 
 const actions = {
   async fetchData({ commit }, houseId) {
-    /*eslint-disable no-console*/
-    console.log(API_URL + (houseId != "all" ? houseId : ""));
-    /*eslint-enable no-console*/
     commit("setLoading", true);
     try {
       const response = await axios.get(
-        API_URL + (houseId != "all" ? houseId : ""),
+        API_URL + (houseId != "all" ? "/" + houseId : ""),
         {
           headers: authHeader(),
           params: { size: 1000 },
@@ -35,9 +32,6 @@ const actions = {
       commit("setData", response.data);
       return;
     } catch (error) {
-      /*eslint-disable no-console*/
-      console.log("error: " + error);
-      /*eslint-enable no-console*/
       alert(error);
     }
   },

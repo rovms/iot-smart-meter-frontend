@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <h1>Consumption</h1>
+    <div class="chart"></div>
     <line-chart :chart-data="meterdata" />
   </v-container>
 </template>
@@ -55,3 +56,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.chart {
+  max-height: 200px;
+}
+</style>
