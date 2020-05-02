@@ -54,7 +54,11 @@ const actions = {
       commit("setToken", response.data.token);
       var jwt = parseJwt(response.data.token);
       if (jwt.user_role == "admin") {
-        router.push({ name: "admin_dashboard" });
+        router.push({ name: "admin_dashboard", params: { adminId: jwt._id } });
+      } else if (jwt.user_role == "supplier") {
+        router.push({ name: "supplier_dashboard" });
+      } else if (jwt.user_role == "customer") {
+        router.push({ name: "dashboard" });
       }
     } catch (error) {
       console.log(error);
