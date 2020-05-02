@@ -12,10 +12,14 @@
           </v-toolbar>
           <v-card-text>
             <v-form>
-              <span>Username</span>
-              <v-text-field v-model="username" type="text" />
-              <span>Password</span>
-              <v-text-field v-model="password" id="password" name="password" type="password" />
+              <v-text-field v-model="username" label="Username" name="username" type="text" />
+              <v-text-field
+                v-model="password"
+                id="password"
+                label="Password"
+                name="password"
+                type="password"
+              />
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -24,7 +28,7 @@
             <v-btn v-on:click="submitLogin" color="primary">Login</v-btn>
           </v-card-actions>
         </v-card>
-        <!-- <v-card v-if="!loggingIn" class="elevation-12">
+        <v-card v-if="!loggingIn" class="elevation-12">
           <v-toolbar color="success" dark flat>
             <v-toolbar-title>Register</v-toolbar-title>
             <v-spacer />
@@ -46,7 +50,7 @@
             <v-spacer />
             <v-btn v-on:click="submitRegister" color="success">Register</v-btn>
           </v-card-actions>
-        </v-card>-->
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

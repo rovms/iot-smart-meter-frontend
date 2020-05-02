@@ -18,7 +18,6 @@ import store from "./store";
 import axios from "axios";
 export default {
   name: "App",
-
   data() {
     return {};
   },
@@ -32,16 +31,20 @@ export default {
     }
   },
   created() {
-    axios.interceptors.response.use(undefined, function(err) {
-      return new Promise(function() {
-        if (err.response.status === 401) {
+    axios.interceptors.response.use(
+      undefined,
+      function(response) {
+        return response;
+      },
+      function(error) {
+        if (error.response.status === 401) {
           store
             .dispatch("logoutUser")
             .then(() => this.$router.push({ name: "login" }));
         }
-        throw err;
-      });
-    });
+        return Promise.reject(error);
+      }
+    );
   }
 };
 </script>

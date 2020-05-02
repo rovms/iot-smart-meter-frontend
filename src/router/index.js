@@ -35,7 +35,7 @@ const router = new VueRouter({
       },
     },
     {
-      path: "/admin/:adminId/dashboard",
+      path: "/admin/dashboard",
       name: "admin_dashboard",
       component: AdminDashboard,
       meta: {
