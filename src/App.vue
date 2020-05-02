@@ -18,9 +18,6 @@ import store from "./store";
 import axios from "axios";
 export default {
   name: "App",
-  data() {
-    return {};
-  },
   computed: {
     ...mapGetters(["isLoggedIn"])
   },
