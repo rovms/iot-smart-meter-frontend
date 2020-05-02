@@ -51,15 +51,12 @@ const actions = {
     }
   },
 
-  /*eslint-disable no-console*/
-
   async login({ commit }, req) {
     try {
       const response = await axios.post(API_URL + "login/", req);
       commit("setToken", response.data.token);
       var jwt = parseJwt(response.data.token);
       if (jwt.user_role == "admin") {
-        // router.push({ name: "admin_dashboard", params: { adminId: jwt._id } });
         router.push({ name: "admin_dashboard" });
       } else if (jwt.user_role == "supplier") {
         router.push({ name: "supplier_dashboard" });
