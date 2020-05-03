@@ -50,7 +50,7 @@ const getters = {
           var datestr =
             date.getDate() +
             "." +
-            date.getMonth() +
+            (date.getMonth() + 1) +
             " " +
             date.getHours() +
             ":" +
