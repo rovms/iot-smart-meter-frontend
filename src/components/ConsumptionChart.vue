@@ -2,7 +2,7 @@
   <v-container>
     <h1>Consumption</h1>
     <div class="chart"></div>
-    <line-chart :chart-data="meterdata" />
+    <line-chart :chart-data="meterdata" height="150px" />
   </v-container>
 </template>
 
