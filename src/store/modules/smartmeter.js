@@ -1,11 +1,12 @@
 import axios from "axios";
 import authHeader from "../auth/auth-header";
 
-const API_URL = process.env.VUE_APP_API_BASE_URL + "real_data";
+const API_URL = process.env.VUE_APP_API_BASE_URL;
 
 const state = {
   data: [],
   loading: false,
+  predictions: [],
 };
 
 const mutations = {
@@ -15,6 +16,9 @@ const mutations = {
   setLoading(state, value) {
     state.loading = value;
   },
+  setPredictions(state, payload) {
+    state.predictions = payload;
+  },
 };
 
 const actions = {
@@ -22,7 +26,7 @@ const actions = {
     commit("setLoading", true);
     try {
       const response = await axios.get(
-        API_URL + (houseId != "all" ? "/" + houseId : ""),
+        API_URL + "real_data" + (houseId != "all" ? "/" + houseId : ""),
         {
           headers: authHeader(),
           params: { size: 1000 },
@@ -30,6 +34,22 @@ const actions = {
       );
       commit("setLoading", false);
       commit("setData", response.data);
+      return;
+    } catch (error) {
+      alert(error);
+    }
+  },
+
+  async fetchPredictions({ commit }, houseId) {
+    if (!houseId) {
+      alert("no house id given...");
+      return;
+    }
+    try {
+      const response = await axios.get(API_URL + "prediction/" + houseId, {
+        params: { size: 24 },
+      });
+      commit("setPredictions", response.data);
       return;
     } catch (error) {
       alert(error);
@@ -92,6 +112,13 @@ const getters = {
     }
 
     return averages;
+  },
+
+  predictions: (state) => {
+    if (state.predictions) {
+      // return state.predictions.data.map((r) => );
+      return state.predictions.data;
+    }
   },
 };
 

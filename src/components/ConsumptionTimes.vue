@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1>Consumption</h1>
-    <bar-chart :chart-data="averages" height="400px" />
+    <bar-chart :chart-data="averages" :height="400" />
   </v-container>
 </template>
 

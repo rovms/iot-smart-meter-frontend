@@ -9,6 +9,7 @@ import NotExists from "../components/NotExists.vue";
 import ConsumptionTable from "../components/ConsumptionTable.vue";
 import ConsumptionChart from "../components/ConsumptionChart.vue";
 import ConsumptionTimes from "../components/ConsumptionTimes.vue";
+import ConsumptionPrediction from "../components/ConsumptionPrediction.vue";
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -62,6 +63,14 @@ const router = new VueRouter({
       path: "/consumption/:houseId/time",
       name: "consumption_time",
       component: ConsumptionTimes,
+      meta: {
+        authRequired: true,
+      },
+    },
+    {
+      path: "/consumption/:houseId/prediction",
+      name: "consumption_prediction",
+      component: ConsumptionPrediction,
       meta: {
         authRequired: true,
       },
